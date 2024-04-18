@@ -73,15 +73,14 @@
         outline: none;
     }
 
-    .clearfix{
+    .clearfix {
         display: flex;
         justify-content: space-around;
     }
 </style>
 <h2>Quản lý xuất xứ sản phẩm</h2>
 <div style="text-align: center;">
-    <input type="text" id="myInput" onkeyup="search_table_xx()" placeholder="Search for names.."
-        title="Type in a name">
+    <input type="text" id="myInput" onkeyup="search_table_xx()" placeholder="Search for names.." title="Type in a name">
     <button onclick="document.getElementById('create').style.display='block'" style="width:auto;">Thêm xuất xứ</button>
 </div>
 
@@ -112,40 +111,49 @@
             <td>
                 <%= data.update_at %>
             </td>
-            <% if (data.showw == 0) { %>
-            <td style="color: #fe7c21;">Không</td>
-            <% }else { %>
-            <td style="color: #8acf18;">Có</td>
-            <% } %>
-            <td  class="cog">
-                <button onclick="document.getElementById('update<%= data.ID %>').style.display='block'" style="width:auto;">Sửa</button>
-                <div id="update<%= data.ID %>" class="modal">
-                    <span onclick="document.getElementById('update<%= data.ID %>').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <form class="modal-content" action="/admin/xuat-xu-san-pham/update/<%= data.ID %>" method="post">
-                        <div class="container">
-                            <h1 style="text-align:center;">Sửa xuất xứ</h1>
-                            <hr>
-                            <label for=""><b>Tên xuất xứ: </b></label>
-                            <input class="input" type="text" placeholder="Nhập tên xuất xứ" name="nameXx" value="<%= data.XuatXu %>" required>
-                            <div class="clearfix">
-                                <button type="button" onclick="document.getElementById('update<%= data.ID %>').style.display='none'" class="cancelbtn">Thoát</button>
-                                <button type="submit" class="CUDbtn">Sửa</button>
+            <% if (data.showw==0) { %>
+                <td style="color: #fe7c21;">Không</td>
+                <% }else { %>
+                    <td style="color: #8acf18;">Có</td>
+                    <% } %>
+                        <td class="cog">
+                            <button onclick="document.getElementById('update<%= data.ID %>').style.display='block'"
+                                style="width:auto;">Sửa</button>
+                            <div id="update<%= data.ID %>" class="modal">
+                                <span onclick="document.getElementById('update<%= data.ID %>').style.display='none'"
+                                    class="close" title="Close Modal">&times;</span>
+                                <form class="modal-content" action="/admin/xuat-xu-san-pham/update/<%= data.ID %>"
+                                    method="post">
+                                    <div class="container">
+                                        <h1 style="text-align:center;">Sửa xuất xứ</h1>
+                                        <hr>
+                                        <label for=""><b>Tên xuất xứ: </b></label>
+                                        <input class="input" type="text" placeholder="Nhập tên xuất xứ" name="nameXx"
+                                            value="<%= data.XuatXu %>" required>
+                                        <div class="clearfix">
+                                            <button type="button"
+                                                onclick="document.getElementById('update<%= data.ID %>').style.display='none'"
+                                                class="cancelbtn">Thoát</button>
+                                            <button type="submit" class="CUDbtn">Sửa</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            </td>
-            <% if (data.showw == 0) { %>
-            <td><button><a style="color: #8acf18;" href="/admin/xuat-xu-san-pham/show/<%= data.ID %>">Hiện</a></button></td>
-            <% }else { %>
-            <td><button><a style="color: #fe7c21;" href="/admin/xuat-xu-san-pham/hidden/<%= data.ID %>">Ẩn</a></button></td>
-            <% } %>
+                        </td>
+                        <% if (data.showw==0) { %>
+                            <td><button><a style="color: #8acf18;"
+                                        href="/admin/xuat-xu-san-pham/show/<%= data.ID %>">Hiện</a></button></td>
+                            <% }else { %>
+                                <td><button><a style="color: #fe7c21;"
+                                            href="/admin/xuat-xu-san-pham/hidden/<%= data.ID %>">Ẩn</a></button></td>
+                                <% } %>
         </tr>
         <% }) %>
 </table>
 
 <div id="create" class="modal">
-    <span onclick="document.getElementById('create').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <span onclick="document.getElementById('create').style.display='none'" class="close"
+        title="Close Modal">&times;</span>
     <form class="modal-content" action="/admin/xuat-xu-san-pham/create" method="post">
         <div class="container">
             <h1 style="text-align:center;">Thêm xuất xứ</h1>
@@ -153,7 +161,8 @@
             <label for=""><b>Tên xuất xứ: </b></label>
             <input class="input" type="text" placeholder="Nhập tên xuất xứ" name="nameXx" required>
             <div class="clearfix">
-                <button type="button" onclick="document.getElementById('create').style.display='none'" class="cancelbtn">Thoát</button>
+                <button type="button" onclick="document.getElementById('create').style.display='none'"
+                    class="cancelbtn">Thoát</button>
                 <button type="submit" class="CUDbtn">Thêm</button>
             </div>
         </div>

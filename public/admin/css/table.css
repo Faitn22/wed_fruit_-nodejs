@@ -3,7 +3,7 @@
 
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -87,15 +87,18 @@ a{
     margin-top: 12px;
 }
 
-/* .cog{
+/* .cog {
     text-align: center !important;
+
 } */
 
-#myTable_bottom{
+#myTable_bottom {
     margin-top: 12px;
 }
 
-#myTable, #myTable_top, #myTable_bottom {
+#myTable,
+#myTable_top,
+#myTable_bottom {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
@@ -105,10 +108,10 @@ a{
 #myTable th,
 #myTable td,
 #myTable_top th,
-#myTable_top td, 
+#myTable_top td,
 #myTable_bottom th,
-#myTable_bottom td{
-    text-align: left;
+#myTable_bottom td {
+    text-align: center;
     padding: 12px;
 }
 

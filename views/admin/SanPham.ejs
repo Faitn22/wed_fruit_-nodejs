@@ -73,11 +73,12 @@
         outline: none;
     }
 
-    .clearfix{
+    .clearfix {
         display: flex;
         justify-content: space-around;
     }
-    .custom-select-sp select{
+
+    .custom-select-sp select {
         width: 100%;
         padding: 15px;
         margin: 5px 0 22px 0;
@@ -88,8 +89,7 @@
 </style>
 <h2>Quản lý sản phẩm</h2>
 <div style="text-align: center;">
-    <input type="text" id="myInput" onkeyup="search_table_sp()" placeholder="Search for names.."
-        title="Type in a name">
+    <input type="text" id="myInput" onkeyup="search_table_sp()" placeholder="Search for names.." title="Type in a name">
     <button onclick="document.getElementById('create').style.display='block'" style="width:auto;">Thêm sản phẩm</button>
     <!-- <button style="width:auto;">Lịch sử sản phẩm</button> -->
 </div>
@@ -97,7 +97,6 @@
 <table id="myTable">
     <tr class="header">
         <th>STT</th>
-        <th>ID</th>
         <th>Loại sản phẩm</th>
         <th>Ảnh</th>
         <th>Tên sản phẩm</th>
@@ -108,15 +107,12 @@
         <th>Ngày sửa</th>
         <th>Xuất xứ</th>
         <th>Hiện sản phẩm</th>
-        <th colspan="2" class="cog"><i class="fa fa-cog" aria-hidden="true"></i></th>
+        <th colspan="3" class="cog"><i class="fa fa-cog" aria-hidden="true"></i></th>
     </tr>
     <% dataSp.forEach((data)=>{ %>
         <tr>
             <td>
                 <%= SttSp +=1 %>
-            </td>
-            <td>
-                <%= data.ID %>
             </td>
             <td style="color: <% if(data.show_lsp == 0) { %> #fe7c21 <% } else { %> #8acf18 <% } %>">
                 <%= data.LoaiSanPham %>
@@ -145,84 +141,197 @@
             <td style="color: <% if(data.show_xx == 0) { %> #fe7c21 <% } else { %> #8acf18 <% } %>">
                 <%= data.XuatXu %>
             </td>
-            <% if (data.show_sp == 0) { %>
-            <td style="color: #fe7c21;">Không</td>
-            <% }else { %>
-            <td style="color: #8acf18;">Có</td>
-            <% } %>
-            <td  class="cog">
-                <button onclick="document.getElementById('update<%= data.ID %>').style.display='block'" style="width:auto;">Sửa</button>
-                <div id="update<%= data.ID %>" class="modal">
-                    <span onclick="document.getElementById('update<%= data.ID %>').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <form class="modal-content" action="/admin/san-pham/update/<%= data.ID %>" method="post" enctype="multipart/form-data">
-                        <div class="container">
-                            <h1 style="text-align:center;">Sửa sản phẩm</h1>
-                            <hr>
-                
-                            <label for=""><b>Loại sản phẩm: </b></label>
-                            <div class="custom-select-sp">
-                                <select name="loaiSp" required>
-                                    <option value="<%= data.ID_LoaiSanPham + ',' + data.show_lsp  %>"><%= data.LoaiSanPham %></option>
-                                    <% dataLsp.forEach((dataItem) => { 
-                                        if(dataItem.ID != data.ID_LoaiSanPham) { %>
-                                        <option value="<%= dataItem.ID + ',' + dataItem.showw %>"><%= dataItem.LoaiSanPham %></option>
-                                        <% }
-                                     }) %>
-                                </select>
-                            </div>
-                                
-                            </section>
-                            
-                            <label for=""><b>Ảnh: </b></label>
-                            <img src="/admin/image/<%= data.imgName %>" alt="" style="max-width: 60px">
-                            <input type="text" value="<%= data.imgName %>" name="imgName" hidden>
-                            <input class="input" type="file" name="fileImage" accept="image/*" >
-                            
-                            <label for=""><b>Tên sản phẩm: </b></label>
-                            <input class="input" type="text" placeholder="Nhập tên sản phẩm" name="tenSp" value="<%= data.TenSanPham %>" required>
-                            
-                            <label for=""><b>Giá nhập: </b></label>
-                            <input class="input" type="number" placeholder="Nhập giá nhập" name="giaNhap" value="<%= data.GiaNhap %>" oninput="this.value = Math.abs(this.value)" min="0" required>
-                            
-                            <label for=""><b>Giá bán: </b></label>
-                            <input class="input" type="number" placeholder="Nhập giá bán" name="giaBan" value="<%= data.GiaBan %>" oninput="this.value = Math.abs(this.value)" min="0" required>
-                            
-                            <label for=""><b>Số lượng: </b></label>
-                            <input class="input" type="number" placeholder="Nhập số lượng" name="soLuong" value="<%= data.SoLuong %>" oninput="this.value = Math.abs(this.value)" min="0" required>
-                            
-                            <label for=""><b>Xuất xứ: </b></label>
-                            <div class="custom-select-sp" >
-                                <select name="xuatXu" required>
-                                    <option value="<%= data.ID_XuatXu + ',' + data.show_xx %>"><%= data.XuatXu %></option>
-                                    <% dataXx.forEach((dataItem) => { 
-                                        if(dataItem.ID != data.ID_XuatXu) { %>
-                                        <option value="<%= dataItem.ID + ',' + dataItem.showw %>"><%= dataItem.XuatXu %></option>
-                                        <% }
-                                     }) %>
-                                </select>
-                            </div>
-                            
-                            <div class="clearfix">
-                                <button type="button" onclick="document.getElementById('update<%= data.ID %>').style.display='none'" class="cancelbtn">Thoát</button>
-                                <button type="submit" class="CUDbtn">Sửa</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </td>
-            <td>
-                <% if (data.show_sp == 0) { %>
-                <button><a style="color: #8acf18;" href="/admin/san-pham/show/<%= data.ID %>">Hiện</a></button>
+            <% if (data.show_sp==0) { %>
+                <td style="color: #fe7c21;">Không</td>
                 <% }else { %>
-                <button><a style="color: #fe7c21;" href="/admin/san-pham/hidden/<%= data.ID %>">Ẩn</a></button>
-                <% } %>
-            </td>
+                    <td style="color: #8acf18;">Có</td>
+                    <% } %>
+                        <td class="cog">
+                            <button onclick="document.getElementById('update<%= data.ID %>').style.display='block'"
+                                style="width:auto;">Sửa</button>
+                            <div id="update<%= data.ID %>" class="modal">
+                                <span onclick="document.getElementById('update<%= data.ID %>').style.display='none'"
+                                    class="close" title="Close Modal">&times;</span>
+                                <form class="modal-content" action="/admin/san-pham/update/<%= data.ID %>" method="post"
+                                    enctype="multipart/form-data">
+                                    <div class="container">
+                                        <h1 style="text-align:center;">Sửa sản phẩm</h1>
+                                        <hr>
+
+                                        <label for=""><b>Loại sản phẩm: </b></label>
+                                        <div class="custom-select-sp">
+                                            <select name="loaiSp" required>
+                                                <option value="<%= data.ID_LoaiSanPham + ',' + data.show_lsp  %>">
+                                                    <%= data.LoaiSanPham %>
+                                                </option>
+                                                <% dataLsp.forEach((dataItem)=> {
+                                                    if(dataItem.ID != data.ID_LoaiSanPham) { %>
+                                                    <option value="<%= dataItem.ID + ',' + dataItem.showw %>">
+                                                        <%= dataItem.LoaiSanPham %>
+                                                    </option>
+                                                    <% } }) %>
+                                            </select>
+                                        </div>
+
+                                        </section>
+
+                                        <label for=""><b>Ảnh: </b></label>
+                                        <img src="/admin/image/<%= data.imgName %>" alt="" style="max-width: 60px">
+                                        <input type="text" value="<%= data.imgName %>" name="imgName" hidden>
+                                        <input class="input" type="file" name="fileImage" accept="image/*">
+
+                                        <label for=""><b>Tên sản phẩm: </b></label>
+                                        <input class="input" type="text" placeholder="Nhập tên sản phẩm" name="tenSp"
+                                            value="<%= data.TenSanPham %>" required>
+
+                                        <label for=""><b>Giá nhập: </b></label>
+                                        <input class="input" type="number" placeholder="Nhập giá nhập" name="giaNhap"
+                                            value="<%= data.GiaNhap %>" oninput="this.value = Math.abs(this.value)"
+                                            min="0" required>
+
+                                        <label for=""><b>Giá bán: </b></label>
+                                        <input class="input" type="number" placeholder="Nhập giá bán" name="giaBan"
+                                            value="<%= data.GiaBan %>" oninput="this.value = Math.abs(this.value)"
+                                            min="0" required>
+
+                                        <label for=""><b>Số lượng: </b></label>
+                                        <input class="input" type="number" placeholder="Nhập số lượng" name="soLuong"
+                                            value="<%= data.SoLuong %>" oninput="this.value = Math.abs(this.value)"
+                                            min="0" required>
+
+                                        <label for=""><b>Xuất xứ: </b></label>
+                                        <div class="custom-select-sp">
+                                            <select name="xuatXu" required>
+                                                <option value="<%= data.ID_XuatXu + ',' + data.show_xx %>">
+                                                    <%= data.XuatXu %>
+                                                </option>
+                                                <% dataXx.forEach((dataItem)=> {
+                                                    if(dataItem.ID != data.ID_XuatXu) { %>
+                                                    <option value="<%= dataItem.ID + ',' + dataItem.showw %>">
+                                                        <%= dataItem.XuatXu %>
+                                                    </option>
+                                                    <% } }) %>
+                                            </select>
+                                        </div>
+
+                                        <div class="clearfix">
+                                            <button type="button"
+                                                onclick="document.getElementById('update<%= data.ID %>').style.display='none'"
+                                                class="cancelbtn">Thoát</button>
+                                            <button type="submit" class="CUDbtn">Sửa</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <% if (data.show_sp==0) { %>
+                                <button><a style="color: #8acf18;"
+                                        href="/admin/san-pham/show/<%= data.ID %>">Hiện</a></button>
+                                <% }else { %>
+                                    <button><a style="color: #fe7c21;"
+                                            href="/admin/san-pham/hidden/<%= data.ID %>">Ẩn</a></button>
+                                    <% } %>
+                        </td>
+                        <td class="cog">
+                            <button onclick="document.getElementById('del<%= data.ID %>').style.display='block'"
+                                style="width:auto;">Xóa</button>
+                            <div id="del<%= data.ID %>" class="modal">
+                                <span onclick="document.getElementById('del<%= data.ID %>').style.display='none'"
+                                    class="close" title="Close Modal">&times;</span>
+                                <form class="modal-content" action="/admin/san-pham/delete/<%= data.ID %>" method="post"
+                                    enctype="multipart/form-data">
+                                    <div class="container">
+                                        <h1 style="text-align:center;">Xóa sản phẩm</h1>
+                                        <hr>
+                                        <table id="myTable_bottom" style="margin-bottom: 10px;">
+                                            <tr class="header_bottom">
+                                                <th>STT</th>
+                                                <th>ID</th>
+                                                <th>Loại sản phẩm</th>
+                                                <th>Ảnh</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Giá nhập</th>
+                                                <th>Giá bán</th>
+                                                <th>Số lượng</th>
+                                                <th>Ngày thêm</th>
+                                                <th>Ngày sửa</th>
+                                                <th>Xuất xứ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <%= SttSp %>
+                                                </td>
+                                                <td>
+                                                    <%= data.ID %>
+                                                </td>
+                                                <td>
+                                                    <%= data.LoaiSanPham %>
+                                                </td>
+                                                <td>
+                                                    <img src="/admin/image/<%= data.imgName %>" alt=""
+                                                        style="max-width: 60px">
+                                                    <input type="text" value="<%= data.imgName %>" name="imgName"
+                                                        hidden>
+                                                </td>
+                                                <td>
+                                                    <%= data.TenSanPham %>
+                                                </td>
+                                                <td>
+                                                    <%= data.GiaNhap %>
+                                                </td>
+                                                <td>
+                                                    <%= data.GiaBan %>
+                                                </td>
+                                                <td>
+                                                    <%= data.SoLuong %>
+                                                </td>
+                                                <td>
+                                                    <% if(data.Ngay <10 ) { %> 0<%= data.Ngay %>
+                                                            <% } else { %>
+                                                                <%= data.Ngay %>
+                                                                    <% } %> -
+                                                                        <% if(data.Thang <10 ) { %> 0<%= data.Thang %>
+                                                                                <% } else { %>
+                                                                                    <%= data.Thang %>
+                                                                                        <% } %> -
+                                                                                            <%= data.Nam %>
+                                                </td>
+                                                <td>
+                                                    <% if(data.NgayUp <10 ) { %> 0<%= data.NgayUp %>
+                                                            <% } else { %>
+                                                                <%= data.NgayUp %>
+                                                                    <% } %> -
+                                                                        <% if(data.ThangUp <10 ) { %> 0<%= data.ThangUp
+                                                                                %>
+                                                                                <% } else { %>
+                                                                                    <%= data.ThangUp %>
+                                                                                        <% } %> -
+                                                                                            <%= data.NamUp %>
+                                                </td>
+                                                <td>
+                                                    <%= data.XuatXu %>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="clearfix">
+                                            <button type="button"
+                                                onclick="document.getElementById('del<%= data.ID %>').style.display='none'"
+                                                class="cancelbtn">Thoát</button>
+                                            <button type="submit" class="CUDbtn">Xóa</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
         </tr>
         <% }) %>
 </table>
 
 <div id="create" class="modal">
-    <span onclick="document.getElementById('create').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <span onclick="document.getElementById('create').style.display='none'" class="close"
+        title="Close Modal">&times;</span>
     <form class="modal-content" action="/admin/san-pham/create" method="post" enctype="multipart/form-data">
         <div class="container">
             <h1 style="text-align:center;">Thêm sản phẩm</h1>
@@ -232,40 +341,48 @@
             <div class="custom-select-sp">
                 <select name="loaiSp" required>
                     <option value="">--Chọn loại sản phẩm--</option>
-                    <% dataLsp.forEach((data) => { %>
-                        <option value="<%= data.ID + ',' + data.showw %>"><%= data.LoaiSanPham %></option>
-                    <% }) %>
+                    <% dataLsp.forEach((data)=> { %>
+                        <option value="<%= data.ID + ',' + data.showw %>">
+                            <%= data.LoaiSanPham %>
+                        </option>
+                        <% }) %>
                 </select>
             </div>
-            
+
             <label for=""><b>Ảnh: </b></label>
             <input class="input" type="file" name="fileImage" accept="image/*" required>
             <!-- <input type="text" hidden name="fileImageText"> -->
-            
+
             <label for=""><b>Tên sản phẩm: </b></label>
             <input class="input" type="text" placeholder="Nhập tên sản phẩm" name="tenSp" required>
-            
+
             <label for=""><b>Giá nhập: </b></label>
-            <input class="input" type="number" placeholder="Nhập giá nhập" name="giaNhap" oninput="this.value = Math.abs(this.value)" min="0" required>
-            
+            <input class="input" type="number" placeholder="Nhập giá nhập" name="giaNhap"
+                oninput="this.value = Math.abs(this.value)" min="0" required>
+
             <label for=""><b>Giá bán: </b></label>
-            <input class="input" type="number" placeholder="Nhập giá bán" name="giaBan" oninput="this.value = Math.abs(this.value)" min="0" required>
-            
+            <input class="input" type="number" placeholder="Nhập giá bán" name="giaBan"
+                oninput="this.value = Math.abs(this.value)" min="0" required>
+
             <label for=""><b>Số lượng: </b></label>
-            <input class="input" type="number" placeholder="Nhập số lượng" name="soLuong" oninput="this.value = Math.abs(this.value)" min="0" required>
-            
+            <input class="input" type="number" placeholder="Nhập số lượng" name="soLuong"
+                oninput="this.value = Math.abs(this.value)" min="0" required>
+
             <label for=""><b>Xuất xứ: </b></label>
             <div class="custom-select-sp">
                 <select name="xuatXu" required>
                     <option value="">-Chọn xuất xứ</option>
-                    <% dataXx.forEach((data) => { %>
-                        <option value="<%= data.ID + ',' + data.showw %>"><%= data.XuatXu %></option>
-                    <% }) %>
+                    <% dataXx.forEach((data)=> { %>
+                        <option value="<%= data.ID + ',' + data.showw %>">
+                            <%= data.XuatXu %>
+                        </option>
+                        <% }) %>
                 </select>
             </div>
-            
+
             <div class="clearfix">
-                <button type="button" onclick="document.getElementById('create').style.display='none'" class="cancelbtn">Thoát</button>
+                <button type="button" onclick="document.getElementById('create').style.display='none'"
+                    class="cancelbtn">Thoát</button>
                 <button type="submit" class="CUDbtn">Thêm</button>
             </div>
         </div>
@@ -287,11 +404,15 @@
         </div>
     </form>
 </div> -->
-<% /* %><td  class="cog">
-    <button onclick="document.getElementById('del<%= data.ID %>').style.display='block'" style="width:auto;">Xóa</button>
+<!-- <% /* %> -->
+<!-- <td class="cog">
+    <button onclick="document.getElementById('del<%= data.ID %>').style.display='block'"
+        style="width:auto;">Xóa</button>
     <div id="del<%= data.ID %>" class="modal">
-        <span onclick="document.getElementById('del<%= data.ID %>').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <form class="modal-content" action="/admin/san-pham/delete/<%= data.ID %>" method="post" enctype="multipart/form-data">
+        <span onclick="document.getElementById('del<%= data.ID %>').style.display='none'" class="close"
+            title="Close Modal">&times;</span>
+        <form class="modal-content" action="/admin/san-pham/delete/<%= data.ID %>" method="post"
+            enctype="multipart/form-data">
             <div class="container">
                 <h1 style="text-align:center;">Xóa sản phẩm</h1>
                 <hr>
@@ -310,36 +431,66 @@
                         <th>Xuất xứ</th>
                     </tr>
                     <tr>
-                        <td><%= SttSp %></td>
-                        <td><%= data.ID %></td>
-                        <td><%= data.LoaiSanPham %></td>
+                        <td>
+                            <%= SttSp %>
+                        </td>
+                        <td>
+                            <%= data.ID %>
+                        </td>
+                        <td>
+                            <%= data.LoaiSanPham %>
+                        </td>
                         <td>
                             <img src="/admin/image/<%= data.imgName %>" alt="" style="max-width: 60px">
                             <input type="text" value="<%= data.imgName %>" name="imgName" hidden>
                         </td>
-                        <td><%= data.TenSanPham %></td>
-                        <td><%= data.GiaNhap %></td>
-                        <td><%= data.GiaBan %></td>
-                        <td><%= data.SoLuong %></td>
                         <td>
-                            <% if(data.Ngay <10 ) { %> 0<%= data.Ngay %> <% } else { %> <%= data.Ngay %> <% } %> -
-                            <% if(data.Thang <10 ) { %> 0<%= data.Thang %> <% } else { %> <%= data.Thang %> <% } %> -
-                            <%= data.Nam %>
+                            <%= data.TenSanPham %>
                         </td>
                         <td>
-                            <% if(data.NgayUp <10 ) { %> 0<%= data.NgayUp %> <% } else { %> <%= data.NgayUp %> <% } %> -
-                            <% if(data.ThangUp <10 ) { %> 0<%= data.ThangUp %> <% } else { %> <%= data.ThangUp %> <% } %> -
-                            <%= data.NamUp %>
+                            <%= data.GiaNhap %>
                         </td>
-                        <td><%= data.XuatXu %></td>
+                        <td>
+                            <%= data.GiaBan %>
+                        </td>
+                        <td>
+                            <%= data.SoLuong %>
+                        </td>
+                        <td>
+                            <% if(data.Ngay <10 ) { %> 0<%= data.Ngay %>
+                                    <% } else { %>
+                                        <%= data.Ngay %>
+                                            <% } %> -
+                                                <% if(data.Thang <10 ) { %> 0<%= data.Thang %>
+                                                        <% } else { %>
+                                                            <%= data.Thang %>
+                                                                <% } %> -
+                                                                    <%= data.Nam %>
+                        </td>
+                        <td>
+                            <% if(data.NgayUp <10 ) { %> 0<%= data.NgayUp %>
+                                    <% } else { %>
+                                        <%= data.NgayUp %>
+                                            <% } %> -
+                                                <% if(data.ThangUp <10 ) { %> 0<%= data.ThangUp %>
+                                                        <% } else { %>
+                                                            <%= data.ThangUp %>
+                                                                <% } %> -
+                                                                    <%= data.NamUp %>
+                        </td>
+                        <td>
+                            <%= data.XuatXu %>
+                        </td>
                     </tr>
                 </table>
                 <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('del<%= data.ID %>').style.display='none'" class="cancelbtn">Thoát</button>
+                    <button type="button" onclick="document.getElementById('del<%= data.ID %>').style.display='none'"
+                        class="cancelbtn">Thoát</button>
                     <button type="submit" class="CUDbtn">Xóa</button>
                 </div>
-                
+
             </div>
         </form>
     </div>
-</td> <% */ %>
+</td>
+<% */ %> -->

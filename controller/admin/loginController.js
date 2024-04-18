@@ -2,18 +2,18 @@ const loginDB = require('../../model/admin/loginDB');
 
 let viewLogin = (req, res) => {
     req.session.isLoginAdmin = false;
-    res.render('admin/loginAdmin.ejs', {layout: 'admin/loginAdmin.ejs', dataLogin: ''});
+    res.render('admin/loginAdmin.ejs', { layout: 'admin/loginAdmin.ejs', dataLogin: '' });
 }
 
 let postLogin = (req, res) => {
-    
-    loginDB.selectLogin(function(data){
+
+    loginDB.selectLogin(function (data) {
         // console.log(data[0]);
-        if(!data[0]){
-            res.render('admin/loginAdmin.ejs', {dataLogin: 'Sai tài khoản hoặc mật khẩu'});
+        if (!data[0]) {
+            res.render('admin/loginAdmin.ejs', { dataLogin: 'Sai tài khoản hoặc mật khẩu' });
             res.end();
         }
-        else{
+        else {
             req.session.isLoginAdmin = true;
             res.redirect('/admin');
             res.end();
@@ -21,4 +21,4 @@ let postLogin = (req, res) => {
     }, req.body.taiKhoan, req.body.password);
 }
 
-module.exports = {viewLogin, postLogin};
+module.exports = { viewLogin, postLogin };

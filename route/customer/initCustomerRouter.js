@@ -5,10 +5,10 @@ const sanphamController = require('../../controller/customer/sanphamController')
 
 const route = express.Router()
 
-function isLogin(req, res, next){
-    if (req.cookies.dataLogin){
+function isLogin(req, res, next) {
+    if (req.cookies.dataLogin) {
         next();
-    }else{
+    } else {
         res.redirect('/customer/login');
     }
 }

@@ -17,12 +17,12 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true
-  }))
+}))
 
 app.use(fileUpload({
     tempFilePath: true
 }));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static('./public'));
@@ -33,8 +33,8 @@ app.use(expressLayouts);
 initAdminRouter(app);
 initCustomerRouter(app);
 
-app.get('*', function(req, res){
-    res.render('404.ejs', {layout: './404'});
+app.get('*', function (req, res) {
+    res.render('404.ejs', { layout: './404' });
 });
 // app.set('layout', './customer/nolayout');
 

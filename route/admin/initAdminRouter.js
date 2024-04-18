@@ -10,10 +10,10 @@ const statisticalController = require('../../controller/admin/statisticalControl
 
 const route = express.Router()
 
-function isLogin(req, res, next){
-    if (req.session.isLoginAdmin){
+function isLogin(req, res, next) {
+    if (req.session.isLoginAdmin) {
         next();
-    }else{
+    } else {
         res.redirect('/admin/login');
     }
 }

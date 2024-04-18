@@ -4,22 +4,22 @@ const loginDB = require('../../model/customer/loginDB');
 let viewLogin = (req, res) => {
     // req.session.isLogin = false;
     res.clearCookie('dataLogin');
-    res.render('customer/loginCustomer.ejs', {layout: 'customer/loginCustomer.ejs', dataLogin: ''});
+    res.render('customer/loginCustomer.ejs', { layout: 'customer/loginCustomer.ejs', dataLogin: '' });
 }
 
 let postLogin = (req, res) => {
-    loginDB.selectLogin(function(data){
+    loginDB.selectLogin(function (data) {
         // console.log(data);
-        if(!data[0]){
-            res.render('customer/loginCustomer.ejs', {layout: 'customer/loginCustomer.ejs', dataLogin: 'Sai tài khoản hoặc mật khẩu'});
+        if (!data[0]) {
+            res.render('customer/loginCustomer.ejs', { layout: 'customer/loginCustomer.ejs', dataLogin: 'Sai tài khoản hoặc mật khẩu' });
             res.end();
         }
-        else{
+        else {
             // req.session.isLogin = true;
-            
+
             res.cookie('dataLogin', data[0], {
                 httpOnly: true,
-                
+
             });
             res.redirect('/customer/home');
             res.end();
@@ -30,29 +30,29 @@ let postLogin = (req, res) => {
 let viewSignup = (req, res) => {
     req.session.isLogin = false;
     res.clearCookie('dataLogin');
-    res.render('customer/signUpCustomer.ejs', {layout: 'customer/signUpCustomer.ejs', dataLogin: ''});
+    res.render('customer/signUpCustomer.ejs', { layout: 'customer/signUpCustomer.ejs', dataLogin: '' });
 }
 
 let postSignup = (req, res) => {
     // console.log(req.body);
-    if(req.body.usename == ''){
-        res.render('customer/signUpCustomer.ejs', {layout: 'customer/signUpCustomer.ejs', dataLogin: 'Không được trống tài khoản'});
+    if (req.body.usename == '') {
+        res.render('customer/signUpCustomer.ejs', { layout: 'customer/signUpCustomer.ejs', dataLogin: 'Không được trống tài khoản' });
         res.end();
     }
-    if(req.body.password == ''){
-        res.render('customer/signUpCustomer.ejs', {layout: 'customer/signUpCustomer.ejs', dataLogin: 'Không được trống mật khẩu'});
+    if (req.body.password == '') {
+        res.render('customer/signUpCustomer.ejs', { layout: 'customer/signUpCustomer.ejs', dataLogin: 'Không được trống mật khẩu' });
         res.end();
     }
-    if(req.body.password != req.body.password_repeat){
-        res.render('customer/signUpCustomer.ejs', {layout: 'customer/signUpCustomer.ejs', dataLogin: 'Mật khẩu nhập lại không đúng'});
+    if (req.body.password != req.body.password_repeat) {
+        res.render('customer/signUpCustomer.ejs', { layout: 'customer/signUpCustomer.ejs', dataLogin: 'Mật khẩu nhập lại không đúng' });
         res.end();
     }
-    if(req.body.checkboxx != 'yes'){
-        res.render('customer/signUpCustomer.ejs', {layout: 'customer/signUpCustomer.ejs', dataLogin: 'Chưa đồng ý điều khoản'});
+    if (req.body.checkboxx != 'yes') {
+        res.render('customer/signUpCustomer.ejs', { layout: 'customer/signUpCustomer.ejs', dataLogin: 'Chưa đồng ý điều khoản' });
         res.end();
     }
-    if(req.body.usename != '' && req.body.password != '' && (req.body.password == req.body.password_repeat) && req.body.checkboxx == 'yes'){
-        loginDB.postSignUp(function(data){
+    if (req.body.usename != '' && req.body.password != '' && (req.body.password == req.body.password_repeat) && req.body.checkboxx == 'yes') {
+        loginDB.postSignUp(function (data) {
             res.redirect('/customer/login');
             res.end();
         }, req.body.usename, req.body.password);
@@ -60,22 +60,22 @@ let postSignup = (req, res) => {
 }
 
 let changePass = (req, res) => {
-    res.render('customer/changePass.ejs', {layout: 'customer/changePass.ejs'});
+    res.render('customer/changePass.ejs', { layout: 'customer/changePass.ejs' });
     res.end();
 }
 
 let postChangePass = (req, res) => {
     loginDB.isPass((data) => {
-        if (!data[0]){
+        if (!data[0]) {
             res.send('Sai mật khẩu');
             res.end();
-        }else{
+        } else {
             const pass = req.body.password;
             const pass_repeat = req.body.password_repeat;
-            if (pass != pass_repeat){
+            if (pass != pass_repeat) {
                 res.send('Mật khẩu nhập lại sai');
                 res.end();
-            }else{
+            } else {
                 loginDB.postChangePass((dataChange) => {
                     res.redirect('/customer/login');
                     res.end();
@@ -86,4 +86,4 @@ let postChangePass = (req, res) => {
 
 }
 
-module.exports = {viewLogin, postLogin, viewSignup, postSignup, changePass, postChangePass};
+module.exports = { viewLogin, postLogin, viewSignup, postSignup, changePass, postChangePass };

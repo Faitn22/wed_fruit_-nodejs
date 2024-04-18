@@ -18,13 +18,27 @@
         </thead>
         <tr>
             <td>1</td>
-            <td><%= dataDonHang[0].TenKH %></td>
-            <td><%= dataDonHang[0].DiaChi %></td>
-            <td><%= dataDonHang[0].SDT %></td>
-            <td><%= number_format(dataDonHang[0].TongTien) %> <sup>vnđ</sup></td>
-            <td><%= dataDonHang[0].NgayMua %></td>
-            <td><%= dataDonHang[0].GhiChu %></td>
-            <td><%= dataDonHang[0].TenTT %></td>
+            <td>
+                <%= dataDonHang[0].TenKH %>
+            </td>
+            <td>
+                <%= dataDonHang[0].DiaChi %>
+            </td>
+            <td>
+                <%= dataDonHang[0].SDT %>
+            </td>
+            <td>
+                <%= number_format(dataDonHang[0].TongTien) %> <sup>vnđ</sup>
+            </td>
+            <td>
+                <%= dataDonHang[0].NgayMua %>
+            </td>
+            <td>
+                <%= dataDonHang[0].GhiChu %>
+            </td>
+            <td>
+                <%= dataDonHang[0].TenTT %>
+            </td>
         </tr>
     </table>
 </div>
@@ -45,16 +59,27 @@
             <td>Số lượng</td>
             <td>Thành tiền</td>
         </thead>
-        <% dem = 0;
-        dataChiTietDonHang.forEach((data) => { %>
+        <% dem=0; dataChiTietDonHang.forEach((data)=> { %>
             <tr>
-                <td><%= dem += 1 %></td>
-                <td><%= data.TenSanPham %></td>
-                <td><%= data.XuatXu %></td>
-                <td><%= number_format(data.DonGia) %> <sup>vnđ</sup></td>
-                <td><%= data.SoLuong %></td>
-                <td><%= number_format(data.ThanhTien) %> <sup>vnđ</sup></td>
+                <td>
+                    <%= dem +=1 %>
+                </td>
+                <td>
+                    <%= data.TenSanPham %>
+                </td>
+                <td>
+                    <%= data.XuatXu %>
+                </td>
+                <td>
+                    <%= number_format(data.DonGia) %> <sup>vnđ</sup>
+                </td>
+                <td>
+                    <%= data.SoLuong %>
+                </td>
+                <td>
+                    <%= number_format(data.ThanhTien) %> <sup>vnđ</sup>
+                </td>
             </tr>
-        <% }) %>
+            <% }) %>
     </table>
 </div>
