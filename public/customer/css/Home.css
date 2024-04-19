@@ -1,5 +1,11 @@
 .container {
-    background: white;
+    background-color: rgba(56, 189, 81, 0.625);
+
+}
+
+.Tieu_de div::before {
+    border-top: 37px solid transparent;
+    border-left: 37px solid #32c267;
 }
 
 .card-text {
@@ -11,12 +17,12 @@
     color: tomato;
 } */
 
-.card-body{
+.card-body {
     text-align: left;
 }
 
 .card {
-    border: 1px solid rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 a {
@@ -24,7 +30,7 @@ a {
     color: black;
 }
 
-a:hover{
+a:hover {
     color: tomato;
     ;
 }
@@ -52,7 +58,7 @@ a:hover{
     cursor: pointer;
 } */
 
-.Trang > li:hover {
+.Trang>li:hover {
     color: white;
     background-color: #333;
 }
@@ -65,4 +71,3 @@ a:hover{
 .col {
     text-align: -webkit-center;
 }
-

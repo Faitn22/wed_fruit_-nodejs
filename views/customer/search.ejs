@@ -1,26 +1,26 @@
 <div class="container">
     <% if(!dataSp[0]) { %>
-        <p style="text-align: center;">Không có sản phẩm cần tìm</p>
+        <p style="text-align: center">Không có sản phẩm cần tìm</p>
         <% } else { %>
-            <div class="Tieu_de" style="margin-top: 10px;">
-                <div>
-                    Tìm kiếm: <%= title %>
+            <div class="Tieu_de" style="margin-top: 10px">
+                <div>Tìm kiếm: <%= title %>
                 </div>
             </div>
             <div class="row">
-                <% dataSp.forEach((datasp)=> {
-                    %>
-                    <div class="col-sm-3"><a
-                            href="/customer/san-pham/chi-tiet/<%= datasp.ID_LoaiSanPham %>/<%= datasp.ID %>"
-                            style="color: black;">
-                            <div class="card" style="width: 18rem;">
+                <% dataSp.forEach((datasp)=> { %>
+                    <div class="col-sm-3">
+                        <a href="/customer/san-pham/chi-tiet/<%= datasp.ID_LoaiSanPham %>/<%= datasp.ID %>"
+                            style="color: black">
+                            <div class="card" style="width: 18rem; height: 400px; margin: 10px">
                                 <img src="/admin/image/<%= datasp.imgName %>" class="card-img-top" id="NgoaiNhap1"
-                                    alt="..." style="max-height: 450px">
+                                    alt="..." style="max-height: 450px" />
                                 <div class="card-body">
-                                    Tên: <%= datasp.TenSanPham %><br>
-                                        Xuất xứ: <%= datasp.XuatXu %><br>
-                                            Giá bán: <%= datasp.GiaBan %>/kg<br>
-                                                Số lượng: <%= datasp.SoLuong %>kg
+                                    <h5 class="card-title">Tên: <%= datasp.TenSanPham %>
+                                    </h5>
+                                    <p class="card-text">Xuất xứ: <%= datasp.XuatXu %>
+                                    </p>
+                                    <p class="card-text">Giá bán: <%= datasp.GiaBan %>/kg</p>
+                                    <p class="card-text">Số lượng: <%= datasp.SoLuong %>kg</p>
                                 </div>
                             </div>
                         </a>

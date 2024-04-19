@@ -78,10 +78,14 @@
         justify-content: space-around;
     }
 </style>
-<h2>Quản lý xuất xứ sản phẩm</h2>
-<div style="text-align: center;">
-    <input type="text" id="myInput" onkeyup="search_table_xx()" placeholder="Search for names.." title="Type in a name">
-    <button onclick="document.getElementById('create').style.display='block'" style="width:auto;">Thêm xuất xứ</button>
+<div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <h2>Quản lý xuất xứ sản phẩm</h2>
+    <div style="text-align: center;">
+        <input type="text" id="myInput" onkeyup="search_table_xx()" placeholder="Search for names.."
+            title="Type in a name">
+        <button onclick="document.getElementById('create').style.display='block'" style="width:auto;">Thêm xuất
+            xứ</button>
+    </div>
 </div>
 
 <table id="myTable">
